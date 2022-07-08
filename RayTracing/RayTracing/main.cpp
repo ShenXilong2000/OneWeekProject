@@ -5,8 +5,23 @@
 using std::cin;
 using std::cout;
 
-// 實現漸變色
+// 判斷光纖是否與某個球相交
+// 根據推導求得 最終公式為 一元二次函數 A為光纖原點， C為球的原點
+// t^2 * dot(b, b) + 2t* dot(b, (A-C)) + dot((A-C), (A-C)) - r^2 = 0
+// 求b^2 - 4ac > 0
+bool hit_sphere(const point3& center, double radius, const ray& r) {
+	vec3 oc = r.origin() - center;
+	double a = dot(r.direction(), r.direction());	// dot(b, b)
+	double b = 2.0 * dot(r.direction(), oc);
+	double c = dot(oc, oc) - radius * radius;
+	double discriminant = b * b - 4 * a * c;
+	return discriminant > 0;
+}
+
+
 color ray_color(const ray& r) {
+	if (hit_sphere(point3(0, 0, -1), 0.5, r))
+		return color(0, 1, 0);
 	vec3 unit_direction = unit_vector(r.direction());
 	auto t = 0.5 * (unit_direction.y() + 1.0);
 	// 線性插值
@@ -45,5 +60,4 @@ int main()
 			write_color(cout, pixel_color);
 		}
 	}
-
 }
