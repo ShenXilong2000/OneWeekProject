@@ -10,19 +10,21 @@ using std::cout;
 // t^2 * dot(b, b) + 2t* dot(b, (A-C)) + dot((A-C), (A-C)) - r^2 = 0
 // 求b^2 - 4ac > 0
 // 無解返回-1.0， 有解返回解，優先返回小的解
+
+// 令b = 2 * h ,即可进一步化简求根公式。
 double hit_sphere(const point3& center, double radius, const ray& r) {
 	vec3 oc = r.origin() - center;
 	double a = dot(r.direction(), r.direction());	// dot(b, b)
-	double b = 2.0 * dot(r.direction(), oc);
+	double half_b = dot(r.direction(), oc);
 	double c = dot(oc, oc) - radius * radius;
-	double discriminant = b * b - 4 * a * c;
+	double discriminant = half_b * half_b - a * c;
 	if (discriminant < 0) {
 		return -1.0;
 	}
 	else {
-		double t1 = (-b - sqrt(discriminant)) / (2.0 * a);
+		double t1 = (-half_b - sqrt(discriminant)) / (2.0 * a);
 		if (t1 > 0) return t1;
-		double t2 = (-b + sqrt(discriminant)) / (2.0 * a);
+		double t2 = (-half_b + sqrt(discriminant)) / (2.0 * a);
 		if (t2 > 0) return t2;
 		return -1.0;
 	}
