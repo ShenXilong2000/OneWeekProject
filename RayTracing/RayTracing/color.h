@@ -6,9 +6,9 @@
 
 void write_color(std::ostream& out, color pixel_color) {
 	// 寫下每個顯色分量轉換後的值[0, 255]
-	out << static_cast<int>(255.99 * pixel_color.x()) << ' '
-		<< static_cast<int>(255.99 * pixel_color.y()) << ' '
-		<< static_cast<int>(255.99 * pixel_color.z()) << '\n';
+	out << static_cast<int>(255.999 * pixel_color.x()) << ' '
+		<< static_cast<int>(255.999 * pixel_color.y()) << ' '
+		<< static_cast<int>(255.999 * pixel_color.z()) << '\n';
 }
 
 #endif // !COLOR_H

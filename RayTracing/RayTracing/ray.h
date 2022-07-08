@@ -3,6 +3,8 @@
 
 #include"vec3.h"
 
+
+// 光纖 假象成 一個點加上一個方向的衍生
 class ray {
 public:
 	ray() {}
