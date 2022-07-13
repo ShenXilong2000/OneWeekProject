@@ -16,6 +16,13 @@ public:
 	double radius;
 };
 
+// 判斷光纖是否與某個球相交
+// 根據推導求得 最終公式為 一元二次函數 A為光纖原點， C為球的原點
+// t^2 * dot(b, b) + 2t* dot(b, (A-C)) + dot((A-C), (A-C)) - r^2 = 0
+// 求b^2 - 4ac > 0
+// 無解返回-1.0， 有解返回解，優先返回小的解
+
+// 令b = 2 * h ,即可进一步化简求根公式。
 bool sphere::hit(const ray& r, double t_min, double t_max, hit_record& rec) const {
 	vec3 oc = r.origin() - center;
 	double a = dot(r.direction(), r.direction());	// dot(b, b)

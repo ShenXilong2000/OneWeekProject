@@ -1,48 +1,22 @@
 #include<iostream>
-#include "vec3.h"
+
+#include"rtweekend.h"
+#include"hittable_list.h"
+#include"sphere.h"
 #include "color.h"
-#include "ray.h"
+
 using std::cin;
 using std::cout;
 
-// 判斷光纖是否與某個球相交
-// 根據推導求得 最終公式為 一元二次函數 A為光纖原點， C為球的原點
-// t^2 * dot(b, b) + 2t* dot(b, (A-C)) + dot((A-C), (A-C)) - r^2 = 0
-// 求b^2 - 4ac > 0
-// 無解返回-1.0， 有解返回解，優先返回小的解
-
-// 令b = 2 * h ,即可进一步化简求根公式。
-double hit_sphere(const point3& center, double radius, const ray& r) {
-	vec3 oc = r.origin() - center;
-	double a = dot(r.direction(), r.direction());	// dot(b, b)
-	double half_b = dot(r.direction(), oc);
-	double c = dot(oc, oc) - radius * radius;
-	double discriminant = half_b * half_b - a * c;
-	if (discriminant < 0) {
-		return -1.0;
-	}
-	else {
-		double t1 = (-half_b - sqrt(discriminant)) / (2.0 * a);
-		if (t1 > 0) return t1;
-		double t2 = (-half_b + sqrt(discriminant)) / (2.0 * a);
-		if (t2 > 0) return t2;
-		return -1.0;
-	}
-	return discriminant > 0;
-}
 
 // 顏色
-color ray_color(const ray& r) {
-	// 解
-	double t = hit_sphere(point3(0, 0, -1), 0.5, r);
-	if (t > 0) {
-		// 計算法線向量 圓上的點-圓心 再歸一化
- 		vec3 N = unit_vector(r.at(t) - point3(0, 0, -1));
-		// 法線向量（-1， 1） -> (0, 1)
-		return 0.5 * color(N.x() + 1, N.y() + 1, N.z() + 1);
+color ray_color(const ray& r, const hittable& world) {
+	hit_record rec;
+	if (world.hit(r, 0, infinity, rec)) {
+		return 0.5 * (rec.normal + color(1, 1, 1));
 	}
 	vec3 unit_direction = unit_vector(r.direction());
-	t = 0.5 * (unit_direction.y() + 1.0);
+	double t = 0.5 * (unit_direction.y() + 1.0);
 	// 線性插值
 	return (1.0 - t) * color(1.0, 1.0, 1.0) + t * color(0.5, 0.7, 1.0);
 }
@@ -54,6 +28,11 @@ int main()
 	const double aspect_ratio = 16.0 / 9.0;
 	const int image_width = 400;
 	const int image_height = static_cast<int>(image_width / aspect_ratio);
+
+	// world
+	hittable_list world;
+	world.add(make_shared<sphere>(point3(0, 0, -1), 0.5)) ;
+	world.add(make_shared<sphere>(point3(0, -100.5, -1), 100));
 
 	// Camera
 	double viewport_height = 2.0;
@@ -75,7 +54,7 @@ int main()
 			double v = double(j) / (image_height - 1);
 			// 攝像機點到視口坐標系下的每個點
 			ray r(origin, lower_left_corner + u * horizontal + v * vertical - origin);
-			color pixel_color = ray_color(r);
+			color pixel_color = ray_color(r, world);
 			write_color(cout, pixel_color);
 		}
 	}
