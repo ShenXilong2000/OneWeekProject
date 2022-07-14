@@ -1,5 +1,6 @@
 #include<iostream>
 
+#include"camera.h"
 #include"rtweekend.h"
 #include"hittable_list.h"
 #include"sphere.h"
@@ -28,6 +29,7 @@ int main()
 	const double aspect_ratio = 16.0 / 9.0;
 	const int image_width = 400;
 	const int image_height = static_cast<int>(image_width / aspect_ratio);
+	const int samples_per_pixel = 100;
 
 	// world
 	hittable_list world;
@@ -35,27 +37,20 @@ int main()
 	world.add(make_shared<sphere>(point3(0, -100.5, -1), 100));
 
 	// Camera
-	double viewport_height = 2.0;
-	double viewport_width = aspect_ratio * viewport_height;
-	double focal_length = 1.0;
-	
-	// 原點
-	point3 origin = point3(0, 0, 0);
-	vec3 horizontal = vec3(viewport_width, 0, 0);
-	vec3 vertical = vec3(0, viewport_height, 0);
-	// 視口坐下角的坐標
-	point3 lower_left_corner = origin - horizontal / 2 - vertical / 2 - vec3(0, 0, focal_length);
+	camera cam;
 
 	// Render
 	cout << "P3\n" << image_width << " " << image_height << "\n255\n";
 	for (int j = image_height - 1; j >= 0; --j) {
 		for (int i = 0; i < image_width; ++i) {
-			double u = double(i) / (image_width - 1);
-			double v = double(j) / (image_height - 1);
-			// 攝像機點到視口坐標系下的每個點
-			ray r(origin, lower_left_corner + u * horizontal + v * vertical - origin);
-			color pixel_color = ray_color(r, world);
-			write_color(cout, pixel_color);
+			color pixel_color(0, 0, 0); // 求和
+			for (int s = 0; s < samples_per_pixel; ++s) {
+				auto u = double(i + random_double()) / (image_width - 1);
+				auto v = double(j + random_double()) / (image_height - 1);
+				ray r = cam.get_ray(u, v);
+				pixel_color += ray_color(r, world);
+			}
+			write_color(cout, pixel_color, samples_per_pixel);
 		}
 	}
 }
