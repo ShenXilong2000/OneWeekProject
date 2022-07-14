@@ -10,9 +10,9 @@ void write_color(std::ostream& out, color pixel_color, int samples_per_pixel) {
 	auto b = pixel_color.z();
 	// 根據樣本數對顏色取平均值
 	auto scale = 1.0 / samples_per_pixel;
-	r *= scale;
-	g *= scale;
-	b *= scale;
+	r = sqrt(r * scale);
+	g = sqrt(g * scale);
+	b = sqrt(b * scale);
 
 	// 寫下每個顯色分量轉換後的值[0, 255]
 	out << static_cast<int>(256 * clamp(r, 0.0, 0.999)) << ' '

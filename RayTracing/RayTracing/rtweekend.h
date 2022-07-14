@@ -22,7 +22,9 @@ inline double degrees_to_radians(double degrees) {	// 度數到弧度
 // 隨機數生成器
 inline double random_double() {
 	// [0, 1)
-	return rand() / (RAND_MAX + 1.0);
+	return rand() / (RAND_MAX + 1.0) * 2.0 - 1.0;
+	// [-1, 1)
+	// return rand() / (RAND_MAX + 1.0) * 2.0 - 1.0;
 }
 
 inline double random_double(double min, double max) {
