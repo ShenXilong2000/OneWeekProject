@@ -1,19 +1,20 @@
 #ifndef SPHERE_H
 #define SPHERE_H
 
-#include"hittable.h"
+// #include"hittable.h"
 #include"vec3.h"
+#include"material.h"
 
 class sphere :public hittable {
 public:
-	sphere(){}
-	sphere(point3 cen, double r) :center(cen), radius(r){}
+	sphere() { }
+	sphere(point3 cen, double r, shared_ptr<material> m) :center(cen), radius(r), mat_ptr(m) { }
 
 	virtual bool hit(const ray& r, double t_min, double t_max, hit_record& rec) const override;
-
 public:
 	point3 center;
 	double radius;
+	shared_ptr<material> mat_ptr;
 };
 
 // 判斷光纖是否與某個球相交
@@ -21,7 +22,6 @@ public:
 // t^2 * dot(b, b) + 2t* dot(b, (A-C)) + dot((A-C), (A-C)) - r^2 = 0
 // 求b^2 - 4ac > 0
 // 無解返回-1.0， 有解返回解，優先返回小的解
-
 // 令b = 2 * h ,即可进一步化简求根公式。
 bool sphere::hit(const ray& r, double t_min, double t_max, hit_record& rec) const {
 	vec3 oc = r.origin() - center;
@@ -37,6 +37,7 @@ bool sphere::hit(const ray& r, double t_min, double t_max, hit_record& rec) cons
 			rec.p = r.at(t);
 			vec3 outward_normal = (rec.p - center) / radius;
 			rec.set_face_normal(r, outward_normal);
+			rec.mat_ptr = mat_ptr;
 			return true;
 		}
 
@@ -46,6 +47,7 @@ bool sphere::hit(const ray& r, double t_min, double t_max, hit_record& rec) cons
 			rec.p = r.at(t);
 			vec3 outward_normal = (rec.p - center) / radius;
 			rec.set_face_normal(r, outward_normal);
+			rec.mat_ptr = mat_ptr;
 			return true;
 		}
 	}

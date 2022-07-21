@@ -1,2 +1,38 @@
 ﻿  main.cpp
-  RayTracing.vcxproj -> D:\OneWeekProject\OneWeekProject\RayTracing\x64\Debug\RayTracing.exe
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\sphere.h(10,42): error C2065: “material”: 未声明的标识符
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\sphere.h(10,31): error C2923: "std::shared_ptr": "material" 不是参数 "_Ty" 的有效 模板 类型参数
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\sphere.h(10): message : 参见“material”的声明
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\sphere.h(18,13): error C2065: “material”: 未声明的标识符
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\sphere.h(18,2): error C2923: "std::shared_ptr": "material" 不是参数 "_Ty" 的有效 模板 类型参数
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\sphere.h(18): message : 参见“material”的声明
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\sphere.h(9,8): error C2512: “std::shared_ptr”: 没有合适的默认构造函数可用
+D:\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\memory(1493,1): message : 参见“std::shared_ptr”的声明
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\sphere.h(41,8): error C2039: "mat_ptr": 不是 "hit_record" 的成员
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\hittable.h(6): message : 参见“hit_record”的声明
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\sphere.h(51,8): error C2039: "mat_ptr": 不是 "hit_record" 的成员
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\hittable.h(6): message : 参见“hit_record”的声明
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\material.h(8,19): error C2011: “hit_record”:“struct”类型重定义
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\hittable.h(6): message : 参见“hit_record”的声明
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\material.h(34,1): error C2027: 使用了未定义类型“hit_record”
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\hittable.h(6): message : 参见“hit_record”的声明
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\material.h(35,1): error C2027: 使用了未定义类型“hit_record”
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\hittable.h(6): message : 参见“hit_record”的声明
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\material.h(35,1): error C2440: “<function-style-cast>”: 无法从“vec3”转换为“ray”
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\material.h(35,1): message : 无构造函数可以接受源类型，或构造函数重载决策不明确
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\material.h(48,1): error C2027: 使用了未定义类型“hit_record”
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\hittable.h(6): message : 参见“hit_record”的声明
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\material.h(48,1): error C2660: “reflect”: 函数不接受 1 个参数
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\vec3.h(125,6): message : 参见“reflect”的声明
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\material.h(49,1): error C2027: 使用了未定义类型“hit_record”
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\hittable.h(6): message : 参见“hit_record”的声明
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\material.h(49,1): error C2440: “<function-style-cast>”: 无法从“vec3”转换为“ray”
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\material.h(49,1): message : 无构造函数可以接受源类型，或构造函数重载决策不明确
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\material.h(51,1): error C2027: 使用了未定义类型“hit_record”
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\hittable.h(6): message : 参见“hit_record”的声明
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\material.h(51,1): error C2660: “dot”: 函数不接受 1 个参数
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\vec3.h(86,15): message : 参见“dot”的声明
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\main.cpp(16,13): error C2079: “rec”使用未定义的 struct“hit_record”
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\main.cpp(19,5): error C2664: “bool hittable::hit(const ray &,double,double,hit_record &) const”: 无法将参数 4 从“int”转换为“hit_record &”
+D:\OneWeekProject\OneWeekProject\RayTracing\RayTracing\hittable.h(22,15): message : 参见“hittable::hit”的声明
+  sphere.cpp
+  正在生成代码...
